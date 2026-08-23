@@ -1,0 +1,49 @@
+.flag_button {
+    border: none;
+    background: transparent;
+    justify-content: center;
+    position: relative;
+}
+.flag_button svg {
+    color: inherit;
+    width: 18px;
+    height: 18px;
+    transform : translateY(2px);
+}
+.flag_button[data-flagged="true"] svg {
+    color: rgb(202, 158, 230);
+    fill: rgb(202, 158, 230);
+}
+.button_group {
+    display: flex;
+    border-radius: 15px;
+    border-color: rgba(83, 100, 113, 0.15);
+    border-width: 2px;
+    border-style: solid;
+}
+html[data-dark="true"] .button_group {
+    border-color: rgba(113, 118, 123, 0.15);
+}
+.button_container {
+    color: rgb(83, 100, 113);
+    background: transparent;
+    transition: color 0.25s ease, background 0.25s ease;
+    width: 34.75px;
+    height: 29.75px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+html[data-dark="true"] .button_container {
+    color: rgb(113, 118, 123);
+}
+.button_container:hover svg {
+    background: rgb(202, 158, 230, 0.15);
+    color: rgb(202, 158, 230);
+}
+.divider {
+    width: 20.75px;
+    height:34.75px;
+    display:flex;
+}

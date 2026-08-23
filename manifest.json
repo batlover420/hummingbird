@@ -1,0 +1,41 @@
+{
+    "name": "Hummingbird",
+    "description": "Processes data pertaining to posts on the X (fka. Twitter) timeline and sends it to the Hummingbird API.",
+    "version": "1.4",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "host_permissions": [
+        "https://x.com/*",
+        "http://127.0.0.1:8000/*"
+    ],
+    "permissions": [
+        "scripting",
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://x.com/*"
+            ],
+            "js": [
+                "config.js",
+                "content.js"
+            ],
+            "css": [
+                "content.css"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icons/*.svg"
+            ],
+            "matches": [
+                "https://x.com/*"
+            ]
+        }
+    ]
+}

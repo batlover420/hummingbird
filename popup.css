@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "Sixtyfour-Regular";
+    src: url("fonts/Sixtyfour-Regular.ttf") format("truetype");
+}
+.info_panel {
+    font-family: "Sixtyfour-Regular", sans-serif;
+    color: rgb(133, 193, 220);
+    background-color: rgb(41, 44, 60);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.version_info {
+    position: absolute;
+    bottom: 0;
+    right: 20;
+}
+.version {
+    position: relative;
+}
+.popup {
+    background-color: rgb(48, 52, 70);
+    border-radius:10px;
+    padding:12px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.button {
+    border-radius: 20px;
+    height: 40px;
+    width: 160px;
+    font-family: "Sixtyfour-Regular", sans-serif;
+    color: rgb(133, 193, 220);
+    background-color: rgb(65, 69, 89);
+    border-color: rgb(48, 52, 70);
+}
+#registration {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#invite_field {
+    width: 160px;
+    padding: 8px 10px;
+
+    border: 1px solid rgb(113, 118, 123);
+    border-radius: 8px;
+
+    background: transparent;
+    color: inherit;
+
+    font-size: 14px;
+    outline: none;
+
+}
+
+#invite_field:focus {
+    border-color: rgb(133, 193, 220);
+}
