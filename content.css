@@ -27,7 +27,7 @@ html[data-dark="true"] .button_group {
 .button_container {
     color: rgb(83, 100, 113);
     background: transparent;
-    transition: color 0.25s ease, background 0.25s ease;
+    transition: color 0.25s ease, background 0.2s ease;
     width: 34.75px;
     height: 29.75px;
     border-radius: 50%;
@@ -38,8 +38,10 @@ html[data-dark="true"] .button_group {
 html[data-dark="true"] .button_container {
     color: rgb(113, 118, 123);
 }
-.button_container:hover svg {
+.button_container:hover {
     background: rgb(202, 158, 230, 0.15);
+}
+.button_container:hover svg {
     color: rgb(202, 158, 230);
 }
 .divider {
