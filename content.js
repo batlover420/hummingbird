@@ -189,37 +189,37 @@ function getTab() {
 }
 ``
 async function processArticle(article) {
-            if (getAdStatus(article)) {
-                return;
-            }
+    if (getAdStatus(article)) {
+        return;
+    }
 
-            if (article?.dataset?.processed === "true") {
-                return;
-            }
+    if (article?.dataset?.processed === "true") {
+        return;
+    }
 
-            article.dataset.processed = "true";
+    article.dataset.processed = "true";
 
-            const post_id = getPostId(article);
+    const post_id = getPostId(article);
 
-            const action_bar = article.firstElementChild.firstElementChild.
-                lastElementChild.lastElementChild.lastElementChild.
-                firstElementChild.firstElementChild;
+    const action_bar = article.firstElementChild.firstElementChild.
+        lastElementChild.lastElementChild.lastElementChild.
+        firstElementChild.firstElementChild;
 
-            const analytics = action_bar.children[3];
+    const analytics = action_bar.children[3];
 
-            injectDivider(analytics);
+    injectDivider(analytics);
 
-            const button_group = injectButtons(post_id, analytics);
+    const button_group = injectButtons(post_id, analytics);
 
-            if (recent_posts.has(post_id)) {
-                handleRecentPost(post_id, button_group);
+    if (recent_posts.has(post_id)) {
+        handleRecentPost(post_id, button_group);
+
+        return;
+    }
     
-                return;
-            }
-            
-            recent_posts.set(post_id, [false, false, false]);
+    recent_posts.set(post_id, [false, false, false]);
 
-            handlePost(post_id, getViewCount(action_bar));
+    handlePost(post_id, getViewCount(action_bar));
 }
 
 async function handlePost(post_id, view_count) {
@@ -464,7 +464,7 @@ function injectButtons(post_id, analytics) {
 
     button_group.className = "button_group";
 
-    button_group.append(buildButtonContainer(post_id, "icons/bot.svg", "Flag as AI Generated", "ai_generated", 0))
+    button_group.append(buildButtonContainer(post_id, "icons/trash.svg", "Flag as Slop", "ai_generated", 0))
     button_group.append(buildButtonContainer(post_id, "icons/swords.svg", "Flag as Controversial", "controversial", 1));
     button_group.append(buildButtonContainer(post_id, "icons/message-circle-plus.svg", "Flag as Engagement Bait", "engagement_bait", 2));
 
