@@ -14,7 +14,7 @@ Currently, Hummingbird only has the capability to process text content, and does
 
 ## **2.1: USAGE**
 
-Each non-promoted post on the **For You** timeline now contains 3 additional buttons on the post’s *action bar*. When clicked, these buttons will *flag* a post internally as *AI Generated, Controversial,* or *Engagement Bait.* These flags will be used to help determine the subjective quality of a post.
+Each non-promoted post on the **For You** timeline now contains 3 additional buttons on the post’s *action bar*. When clicked, these buttons will *flag* a post internally as *Slop, Controversial,* or *Engagement Bait.* These flags will be used to help determine the subjective quality of a post.
 
 See **2.4: FLAGS** for more information.
 
@@ -36,7 +36,7 @@ Flags are meant to distinguish low-quality posts into distinct categories that a
 
 The flags are described as follows:
 
-+ **AI Generated:** This flag is to be attributed to posts that are suspected to originate from AI-run accounts and/or contain AI-Generated **TEXT CONTENT**.
++ **Slop:** This flag is to be attributed to low-effort, high-volume posts, usually AI-Generated.
 
 + **Controversial:** This flag is to be attributed to posts encouraging controversial discussion, especially surrounding topics users might be passionate about. This includes posts encouraging low-brow political discussion, posts discussing controversial public figures, posts encouraging violence or hate speech, and posts disparaging individuals or classes of individuals of a shared attribute.
 
