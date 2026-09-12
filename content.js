@@ -1,18 +1,10 @@
 document.documentElement.dataset.dark = getComputedStyle(document.body).backgroundColor === "rgb(0, 0, 0)";
 
-<<<<<<< HEAD
-let recent_posts = new Map();
-=======
 let recent_posts = new Set();
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 hydrateRecentPosts();
 
 let timelineObserver = null;
 let tabObserver = null;
-<<<<<<< HEAD
-initializeTab();
-=======
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 
 let current_path = window.location.pathname;
 let enabled = false;
@@ -23,12 +15,9 @@ let enabled = false;
     enabled = result.enabled ?? false;
 })();
 
-<<<<<<< HEAD
-=======
 initializeTab();
 
 
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 chrome.storage.onChanged.addListener((changes, area) => {
     if (area !== "local" || !changes.enabled) {
         return;
@@ -71,11 +60,7 @@ async function hydrateRecentPosts() {
     const json = await response.json();
 
     for (const exposure of json) {
-<<<<<<< HEAD
-        recent_posts.set(exposure.post_id, exposure.flags);
-=======
         recent_posts.add(exposure.post_id);
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
     }
 }
 
@@ -185,11 +170,7 @@ function startTabObserver(tab) {
         childList: false,
         subtree: false,
         attributes: true,
-<<<<<<< HEAD
-        attributeFiler: ["aria-selected"]
-=======
         attributeFilter: ["aria-selected"]
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
     });
 
     // Handle initial state
@@ -208,11 +189,7 @@ function getTab() {
 
     return null;
 }
-<<<<<<< HEAD
-``
-=======
 
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 async function processArticle(article) {
     if (getAdStatus(article)) {
         return;
@@ -226,26 +203,6 @@ async function processArticle(article) {
 
     const post_id = getPostId(article);
 
-<<<<<<< HEAD
-    const action_bar = article.firstElementChild.firstElementChild.
-        lastElementChild.lastElementChild.lastElementChild.
-        firstElementChild.firstElementChild;
-
-    const analytics = action_bar.children[3];
-
-    injectDivider(analytics);
-
-    const button_group = injectButtons(post_id, analytics);
-
-    if (recent_posts.has(post_id)) {
-        handleRecentPost(post_id, button_group);
-
-        return;
-    }
-    
-    recent_posts.set(post_id, [false, false, false]);
-
-=======
     if (recent_posts.has(post_id)) {
         return;
     }
@@ -253,7 +210,6 @@ async function processArticle(article) {
     recent_posts.add(post_id);
 
     const action_bar = article.querySelector('[role="group"][aria-label]');
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
     handlePost(post_id, getViewCount(action_bar));
 }
 
@@ -283,24 +239,6 @@ async function handlePost(post_id, view_count) {
     }
 }
 
-<<<<<<< HEAD
-function handleRecentPost(post_id, button_group) {
-    const values = recent_posts.get(post_id);
-
-    let i = 0;
-
-    // button indiceds correspond to respective value indices
-    for (const button_container of button_group.children) {
-        if (values[i]) {
-            button_container.children[0].dataset.flagged = "true";
-        }
-
-        i++;
-    }
-}
-
-=======
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 function processJSON(json, view_count) {
     const conversation = json.data?.threaded_conversation_with_injections_v2;
 
@@ -452,11 +390,7 @@ function processQuote(result) {
             const attachment = [];
             if (media.type == "video") {
                 attachment.push("video");
-<<<<<<< HEAD
-                duration = media.video_info.duration_millis;
-=======
                 const duration = media.video_info.duration_millis;
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
                 attachment.push(duration);
             } else {
                 attachment.push("photo");
@@ -494,79 +428,6 @@ function getViewCount(action_bar) { // view count is not in json, for some reaso
     return match ? Number(match[1]) : -1;
 }
 
-<<<<<<< HEAD
-function injectDivider(analytics) {
-    const divider = document.createElement("div");
-    divider.className = "divider";
-
-    analytics.after(divider);
-}
-
-function injectButtons(post_id, analytics) {
-    const button_group = document.createElement("div");
-
-    button_group.className = "button_group";
-
-    button_group.append(buildButtonContainer(post_id, "icons/trash.svg", "Flag as Slop", "ai_generated", 0))
-    button_group.append(buildButtonContainer(post_id, "icons/swords.svg", "Flag as Controversial", "controversial", 1));
-    button_group.append(buildButtonContainer(post_id, "icons/message-circle-plus.svg", "Flag as Engagement Bait", "engagement_bait", 2));
-
-    analytics.after(button_group);
-
-    return button_group;
-}
-
-function buildButtonContainer(post_id, icon_path, title, flag_name, index) {
-    const button = document.createElement("button");
-
-    button.title = title;
-    button.className = "flag_button";
-
-    button.dataset.post_id = post_id;
-    button.dataset.flagged = "false";
-
-    setIcon(button, icon_path);
-
-    button.addEventListener("click", () => {
-        onButtonClick(button, flag_name, index); // index of relevant bool in recent_posts[post_id]
-    });
-
-    const button_container = document.createElement("div");
-    button_container.className = "button_container";
-
-    button_container.append(button);
-
-    return button_container;
-}
-
-async function setIcon(button, icon_path) {
-    const response = await fetch(
-        chrome.runtime.getURL(icon_path)
-    );
-
-    const svgText = await response.text();  //response.text() is async and returns promise
-
-    button.insertAdjacentHTML(
-        "beforeend",
-        svgText
-    );
-}
-
-function onButtonClick(button, flag_name, index) {
-    button.dataset.flagged = button.dataset.flagged === "true" ? "false" : "true";
-
-    recent_posts.get(button.dataset.post_id)[index] = button.dataset.flagged === "true";
-
-    const payload = {
-        post_id: button.dataset.post_id,
-        value: button.dataset.flagged,
-        flag: flag_name
-    };
-    postFlag(payload);
-}
-
-=======
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 async function postPayload(payload) {
     const result = await chrome.storage.local.get("api_key");
     
@@ -584,24 +445,6 @@ async function postPayload(payload) {
     );
 }
 
-<<<<<<< HEAD
-async function postFlag(payload) {
-    const result = await chrome.storage.local.get("api_key");
-
-    const api_key = result.api_key;
-
-    fetch(`${hummingbird_config.api_url}/exposures/posts/update-flag`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${api_key}`
-        },
-        body: JSON.stringify(payload)
-    });
-}
-
-=======
->>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 function getCSRFToken() {
     const cookie = document.cookie.split("; ").find(row => row.startsWith("ct0="));
 
