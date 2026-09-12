@@ -1,11 +1,18 @@
 document.documentElement.dataset.dark = getComputedStyle(document.body).backgroundColor === "rgb(0, 0, 0)";
 
+<<<<<<< HEAD
 let recent_posts = new Map();
+=======
+let recent_posts = new Set();
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 hydrateRecentPosts();
 
 let timelineObserver = null;
 let tabObserver = null;
+<<<<<<< HEAD
 initializeTab();
+=======
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 
 let current_path = window.location.pathname;
 let enabled = false;
@@ -16,6 +23,12 @@ let enabled = false;
     enabled = result.enabled ?? false;
 })();
 
+<<<<<<< HEAD
+=======
+initializeTab();
+
+
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 chrome.storage.onChanged.addListener((changes, area) => {
     if (area !== "local" || !changes.enabled) {
         return;
@@ -58,7 +71,11 @@ async function hydrateRecentPosts() {
     const json = await response.json();
 
     for (const exposure of json) {
+<<<<<<< HEAD
         recent_posts.set(exposure.post_id, exposure.flags);
+=======
+        recent_posts.add(exposure.post_id);
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
     }
 }
 
@@ -168,7 +185,11 @@ function startTabObserver(tab) {
         childList: false,
         subtree: false,
         attributes: true,
+<<<<<<< HEAD
         attributeFiler: ["aria-selected"]
+=======
+        attributeFilter: ["aria-selected"]
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
     });
 
     // Handle initial state
@@ -187,7 +208,11 @@ function getTab() {
 
     return null;
 }
+<<<<<<< HEAD
 ``
+=======
+
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 async function processArticle(article) {
     if (getAdStatus(article)) {
         return;
@@ -201,6 +226,7 @@ async function processArticle(article) {
 
     const post_id = getPostId(article);
 
+<<<<<<< HEAD
     const action_bar = article.firstElementChild.firstElementChild.
         lastElementChild.lastElementChild.lastElementChild.
         firstElementChild.firstElementChild;
@@ -219,6 +245,15 @@ async function processArticle(article) {
     
     recent_posts.set(post_id, [false, false, false]);
 
+=======
+    if (recent_posts.has(post_id)) {
+        return;
+    }
+    
+    recent_posts.add(post_id);
+
+    const action_bar = article.querySelector('[role="group"][aria-label]');
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
     handlePost(post_id, getViewCount(action_bar));
 }
 
@@ -248,6 +283,7 @@ async function handlePost(post_id, view_count) {
     }
 }
 
+<<<<<<< HEAD
 function handleRecentPost(post_id, button_group) {
     const values = recent_posts.get(post_id);
 
@@ -263,6 +299,8 @@ function handleRecentPost(post_id, button_group) {
     }
 }
 
+=======
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 function processJSON(json, view_count) {
     const conversation = json.data?.threaded_conversation_with_injections_v2;
 
@@ -414,7 +452,11 @@ function processQuote(result) {
             const attachment = [];
             if (media.type == "video") {
                 attachment.push("video");
+<<<<<<< HEAD
                 duration = media.video_info.duration_millis;
+=======
+                const duration = media.video_info.duration_millis;
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
                 attachment.push(duration);
             } else {
                 attachment.push("photo");
@@ -452,6 +494,7 @@ function getViewCount(action_bar) { // view count is not in json, for some reaso
     return match ? Number(match[1]) : -1;
 }
 
+<<<<<<< HEAD
 function injectDivider(analytics) {
     const divider = document.createElement("div");
     divider.className = "divider";
@@ -522,6 +565,8 @@ function onButtonClick(button, flag_name, index) {
     postFlag(payload);
 }
 
+=======
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 async function postPayload(payload) {
     const result = await chrome.storage.local.get("api_key");
     
@@ -539,6 +584,7 @@ async function postPayload(payload) {
     );
 }
 
+<<<<<<< HEAD
 async function postFlag(payload) {
     const result = await chrome.storage.local.get("api_key");
 
@@ -554,6 +600,8 @@ async function postFlag(payload) {
     });
 }
 
+=======
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
 function getCSRFToken() {
     const cookie = document.cookie.split("; ").find(row => row.startsWith("ct0="));
 

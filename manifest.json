@@ -1,6 +1,10 @@
 {
     "name": "Hummingbird",
+<<<<<<< HEAD
     "description": "Processes data pertaining to posts on the X (fka. Twitter) timeline and sends it to the Hummingbird API.",
+=======
+    "description": "Scrapes post and user information and logs it to an external server.",
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
     "version": "1.4",
     "manifest_version": 3,
     "action": {
@@ -27,6 +31,7 @@
                 "content.css"
             ]
         }
+<<<<<<< HEAD
     ],
     "web_accessible_resources": [
         {
@@ -37,5 +42,7 @@
                 "https://x.com/*"
             ]
         }
+=======
+>>>>>>> b23e62a (REMOVEDS flag feature entirely; extension is purely for scraping data. Fixed minor issues.)
     ]
 }
